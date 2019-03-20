@@ -1,10 +1,11 @@
 #include "CANinit.h"
-#include "Rev3Messages.h"
-#include "CumminsCAN.h"
+//#include "Rev3Messages.h"
+//#include "CumminsCAN.h"
 #include "defines.h"
 #include "Globals.h"
+#include "Gateway.h"
 
-#include <carloop.h>
+#include "../LIBRARIES/carloop-library/src/carloop.h"
 
 Carloop<CarloopRevision2> carloop;
 
@@ -22,7 +23,7 @@ void initCAN(void){
     }
     else{
       carloop.setCANSpeed(VALENCE_BAUD);        //must set can speed before enabling bus!
-      //initValR3CAN();
+      initGateway();
     }
     carloop.enableCAN();                        //enable canbus
 }
