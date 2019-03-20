@@ -1,0 +1,17 @@
+
+
+typedef enum
+{
+  CT_RESERVED1,
+  CT_RESERVED2,
+  CT_RESERVED3,
+  CT_RESERVED4,
+  CT_RESERVED5,
+  CT_RESERVED6,
+  CT_RESERVED7,
+  NUM_GATEWAY_TIMERS,
+  FIRST_GATEWAY_TIMER = 0
+} GATEWAY_TIMERS;
+
+void initGateway(void);
+void ServiceGateway(void);
