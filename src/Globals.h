@@ -101,3 +101,11 @@ extern int onceThrough;   //init tasks in periodic scheduler
 //extern float BMSchargeVoltSetpoint;
 
 //extern unsigned int BMSstatusWord;
+
+extern int testRoutineSource;
+extern int testState;
+
+extern float SD_Voltage;
+extern float SD_Current;
+extern float SD_Power;
+extern int SD_Time;

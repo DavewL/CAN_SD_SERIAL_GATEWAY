@@ -2,7 +2,7 @@
 
 typedef enum
 {
-  CT_RESERVED1,
+  CT_EL_INIT_DELAY,
   CT_RESERVED2,
   CT_RESERVED3,
   CT_RESERVED4,

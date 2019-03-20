@@ -1,13 +1,13 @@
 #include "SdCard.h"
 #include "CANrec.h"
-#include "../LIBRARIES/SdFat/src/SdFat.h"
+#include <SdFat.h>
 #include "defines.h"
 #include "Globals.h"
 //#include "Rev3Messages.h"
 //#include "CumminsCAN.h"
 //#include "CycleTest.h"
 #include "TickTimer.h"
-//#include "Serial_El_Load.h"
+#include "Serial_El_Load.h"
 //#include "Display.h"
 //#include "DeltaQ_CANopen.h"
 
@@ -113,7 +113,7 @@ void initSDcard(void){
    ResetSDTimer((SD_TIMERS)wIndex);
   }
 
-  SDcardInitOK = sd.begin(chipSelect, SPI_HALF_SPEED);
+  SDcardInitOK = sd.begin(chipSelect, SD_SCK_HZ(4 * MHZ));
   //Serial.println("opening SD");
   /*
   if (SDcardInitOK){
@@ -673,6 +673,12 @@ void ReadFrameLine(void){
           //LoadFrame.Current = fileLine.toFloat();
           //LoadFrame.Power = LoadFrame.Current * LoadFrame.Volts;
           //Serial.println(LoadFrame.Current);
+
+          SD_Voltage = NextLoadFrame.Volts;
+          SD_Current = NextLoadFrame.Current;
+          SD_Power = NextLoadFrame.Power;
+          SD_Time = frameDelaySec;
+
           //SET EL LOAD TO DATA FRAME POWER LEVEL
           if(NextLoadFrame.Power>0){
             sendFixPwrLevel(0);
@@ -697,8 +703,8 @@ void ReadFrameLine(void){
       }
       else{
         RestartFrameFileLines();
-        tempUserString = String::format("#CYCLES,%d,%d",testSubCycleCount,testCycleCount);
-        LogUserString(tempUserString);
+        //tempUserString = String::format("#CYCLES,%d,%d",testSubCycleCount,testCycleCount);
+        //LogUserString(tempUserString);
         testSubCycleCount++;
         n = readFramesFile.fgets(fileLineChars,450);
         /*ResetSDTimer(CT_SD_CLOSE_DELAY);

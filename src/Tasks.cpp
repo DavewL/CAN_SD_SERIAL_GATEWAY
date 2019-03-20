@@ -7,13 +7,13 @@
 //#include <ITEADLIB_Nextion.h>
 //#include "CycleTest.h"
 #include "TickTimer.h"
-#include "CANtx.h"
+//#include "CANtx.h"
 #include "CANinit.h"
 #include "Globals.h"
 //#include "DeltaQ_CANopen.h"
 #include "defines.h"
 //#include "Network.h"
-
+#include "Gateway.h"
 
 int OneSecCounter = 0; //used to run a 1 second timer
 int TwoSecCounter = 0;
@@ -65,22 +65,19 @@ void Tasks40ms(){
 
     if (OneSecCounter >= ONESECCOUNT){    ///////----ONE SECOND TIMER
       //put 1 Second tasks here
-      OneSecCounter = 0;
+        if ((onceThrough == 0)){
+          initSDcard();
+          openReadWriteFiles(what2logTxt);
+          initCAN();
+
+          onceThrough = 1;
+        }
+        OneSecCounter = 0;
       //toggleLED();    //toggle heartbeat LED
     }
     if (TwoSecCounter >= TWOSECCOUNT){   ////////---TWO SECOND TIMER
       //put 2 second tasks here
-      if ((onceThrough == 0)){
-        initSDcard();
-        openReadWriteFiles(what2logTxt);
-        initCAN();
-        //initDisplay(TWOFORTY_BY_THREETWENTY_SERIAL);  //THREEPOINTTWO_INCH_NEXTION
-        //Log2SD(TEST_SUPERVISOR_LOG_MASK);
-        //initNetwork();
-        //dispBatteryHeading();
-        //Serial.println("onceThrough = 0");
-        onceThrough = 1;
-      }
+
       //else {Serial.println("onceThrough = 1");}
 
       TwoSecCounter = 0;
@@ -116,7 +113,7 @@ void Tasks40ms(){
 
 void Tasks80ms(){
   if (onceThrough == 1){
-    //CycleTest();
+    ServiceGateway();
     //sendStatusCAN();
   }
 }

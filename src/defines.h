@@ -53,12 +53,24 @@
 #define GATEWAY_ONLY (4)
 
 //TEST TYPE defines
-#define CYCLE (1)
-#define VEHICLE_LOG (2)
-#define HOT (3)
-#define COLD (4)
-#define GATEWAY_SLAVE (5)
-#define GATEWAY_AUTO (6)
+#define TEST_OFF (0)
+#define GATEWAY_AUTO (1)  //SD LOAD VALUES SERVED TO MASTER VIA CANBUS
+#define GATEWAY_SLAVE1 (2)  //MASTER SENDS LOAD REQUEST TO GATEWAY - "TABLE IMPORT"
+#define GATEWAY_SLAVE2 (3)  //MASTER SENDS LOAD REQUEST TO GATEWAY - "GUI USER DEFINED"
+//#define CYCLE (1)
+//#define VEHICLE_LOG (2)
+//#define HOT (3)
+//#define COLD (4)
+//#define GATEWAY_SLAVE (5)
+//#define GATEWAY_AUTO (6)
+
+//TEST MASTER STATE
+#define INIT_STATE (0)
+#define CHARGE_STATE (1)
+#define DISCHARGE_STATE (2)
+#define SHUTDOWN_STATE (3)
+#define RESET_STATE (4)
+
 
 //DISCHARGER TYPE defines
 #define SD_REPLAY (1)

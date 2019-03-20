@@ -4,8 +4,7 @@
 #include "defines.h"
 #include "Globals.h"
 #include "Gateway.h"
-
-#include "../LIBRARIES/carloop-library/src/carloop.h"
+#include <carloop.h>
 
 Carloop<CarloopRevision2> carloop;
 
@@ -13,17 +12,9 @@ Carloop<CarloopRevision2> carloop;
 void initCAN(void){
     //setup CANbus interface
     carloop.begin(CARLOOP_CAN);
-    if (battType==VALENCE_REV3){
-      carloop.setCANSpeed(VALENCE_BAUD);        //must set can speed before enabling bus!
-      initValR3CAN();
-    }
-    else if (battType == CUMMINS_REV1){
-      carloop.setCANSpeed(CUMMINS_BAUD);        //must set can speed before enabling bus!
-      initCumminsCAN();
-    }
-    else{
-      carloop.setCANSpeed(VALENCE_BAUD);        //must set can speed before enabling bus!
-      initGateway();
-    }
+    
+    carloop.setCANSpeed(GATEWAY_BAUD);        //must set can speed before enabling bus!
+    initGateway();
+    
     carloop.enableCAN();                        //enable canbus
 }

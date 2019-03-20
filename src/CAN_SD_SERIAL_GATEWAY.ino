@@ -8,9 +8,9 @@
 #include "defines.h"
 #include "Tasks.h"
 #include "CANrec.h"
-#include "../LIBRARIES/SdFat/src/SdFat.h"
-#include "../LIBRARIES/SparkIntervalTimer/src/SparkIntervalTimer.h"
-#include "../LIBRARIES/carloop-library/src/carloop.h"
+#include <SdFat.h>
+#include <SparkIntervalTimer.h>
+#include <carloop.h>
 
 SYSTEM_THREAD(ENABLED);
 
@@ -27,7 +27,7 @@ String strRdFileName;           //name of file for read only
 //SD Card variables
 int readFrameFileExists = 0;
 int myFileOk =0;
-int testType = CYCLE;
+int testType = 0;
 int dischargerType = LIST;
 float sdLogRate = 4;
 int what2logTxt;
