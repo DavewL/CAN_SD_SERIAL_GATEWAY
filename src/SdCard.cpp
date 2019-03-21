@@ -677,7 +677,7 @@ void ReadFrameLine(void){
           SD_Voltage = NextLoadFrame.Volts;
           SD_Current = NextLoadFrame.Current;
           SD_Power = NextLoadFrame.Power;
-          SD_Time = frameDelaySec;
+          SD_Time = wMsTimerWillExpireIn(&scastSDtimers[CT_SD_NEXT_LINE_DELAY])/1000;
 
           //SET EL LOAD TO DATA FRAME POWER LEVEL
           if(NextLoadFrame.Power>0){

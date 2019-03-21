@@ -42,10 +42,13 @@ void initGateway(void){
         ResetGatwayTimer((GATEWAY_TIMERS)wIndex);
     }
     initSerialElLoad();
-    delay(200);
+    delay(500);
     putElLoadIntoRemote();
-    delay(200);
-
+    delay(500);
+    turnElLoadOFF();
+    delay(500);
+    setElLoadToFixed();
+    delay(500);
 }
 
 void ServiceGateway(void){
@@ -59,8 +62,8 @@ void ServiceGateway(void){
 
         if (testState == INIT_STATE){
             if (GatewayReset == 0){
-                turnElLoadOFF();
-                setElLoadToFixed();
+                //turnElLoadOFF();
+                //setElLoadToFixed();
                 GatewayReset = 1;
             }
         }
@@ -68,6 +71,11 @@ void ServiceGateway(void){
             //get ready for discharge cycle
             DischargePrep = 0;
             DischargeStart = 0;
+            if (GatewayReset == 0){
+                turnElLoadOFF();
+                //setElLoadToFixed();
+                GatewayReset = 1;
+            }
         }
         else if (testState == DISCHARGE_STATE){
             //set the EL load to power mode and start SD card playback
@@ -78,11 +86,11 @@ void ServiceGateway(void){
                 ReadFrameLine();  //begin reading data frames from the SD card
                 DischargePrep = 1;
             }
-            else if (DischargeStart == 0){
+            /* else if (DischargeStart == 0){
                 if (startListRunning()){  //when function returns a 1, all messages have been sent
                     DischargeStart = 1;
                 }
-            }
+            } */
             else{
                 ReadFrameLine();  //try to read the next data frame from the SD card
                 transmitGatewayMsg1();
@@ -91,12 +99,12 @@ void ServiceGateway(void){
         else if (testState == SHUTDOWN_STATE){
             if (DischargeFinished == 0){
                 turnElLoadOFF();
-                setElLoadToFixed();
+                //setElLoadToFixed();
                 DischargeFinished = 1;
             }
         }
         else if (testState == RESET_STATE){
-            //do nothing
+            GatewayReset = 0;
         }
     }
     
